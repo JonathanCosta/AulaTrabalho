@@ -103,8 +103,11 @@ public class AlunoDao {
 		List<AlunoBean> lista = new ArrayList<AlunoBean>();
 
 		String sql;
+		
 		PreparedStatement comando;
+		
 		sql = "select * from aluno order by nome";
+		
 		comando = conexao.prepareStatement(sql);
 
 		ResultSet resultado = comando.executeQuery();
