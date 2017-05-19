@@ -15,7 +15,7 @@ public class Dao {
 	
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
 	
-	String strConexao = "jdbc:mysql://localhost:3306/sca";
+	String strConexao = "jdbc:mysql://localhost:3306/escola";
 	String strUsuario = "root";
 	String strSenha = "";
 	
