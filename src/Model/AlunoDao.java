@@ -12,7 +12,7 @@ public class AlunoDao {
 	private Connection _conexao;
 	private int _numPag = 1;
 	private int _totalRows = 0;
-	private String _sqlListar = "select * from aluno";
+	private String _sqlListar = "";
 
 	// public AlunoDao(Connection conexao) throws SQLException{
 	// this._conexao = conexao;
@@ -75,7 +75,7 @@ public class AlunoDao {
 
 		PreparedStatement comando;
 
-		sql = "select count(*) as qtd from aluno";
+		sql = "select count(*) as qtd from aluno"+this._sqlListar;
 		comando = this._conexao.prepareStatement(sql);
 
 		ResultSet resultado = comando.executeQuery();
@@ -140,7 +140,7 @@ public class AlunoDao {
 
 		PreparedStatement comando;
 
-		sql = this._sqlListar + " order by nome  limit ?,?";
+		sql = "select * from aluno "+this._sqlListar + " order by nome  limit ?,?";
 
 		comando = this._conexao.prepareStatement(sql);
 		comando.setInt(1, numPag);
@@ -180,20 +180,15 @@ public class AlunoDao {
 
 		String sql = "";
 
-		if (nome != null) {
-			sql = sql+ " where nome like %" + nome + "%";
-		}
+		if (nome != "")sql = sql+ " where nome like \"%" + nome + "%\"";
 
-		if (sql != "" && email != null) {
-			sql = sql+" and email like %" + email + "%";
-		} else if (email != null) {
-			sql = sql+ " where email like %" + email + "%";
-		}
+		if (sql != "" && email != "")	sql = sql+" and email like \"%" + email + "%\"";
+		else if (email != "")sql = sql+ " where email like \"%" + email + "%\"";
 
-		if (sql != "" && matricula < 0) {
-			sql = sql+ " and matricula =" + matricula;
-		} else if (matricula < 0) {
-			sql= sql+ " where matricula =" + matricula;
+		if (sql != "" && matricula > 0) {
+			sql = sql+ " and matricula like \"%" + matricula+"\"%";
+		} else if (matricula > 0) {
+			sql= sql+ " where matricula like \"%" + matricula+"\"%";
 		}
 
 		this._sqlListar = this._sqlListar+sql;

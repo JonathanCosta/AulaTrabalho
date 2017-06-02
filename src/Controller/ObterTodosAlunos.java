@@ -26,43 +26,49 @@ public class ObterTodosAlunos extends HttpServlet {
 		List<AlunoBean> listaAlunos = new ArrayList<AlunoBean>();
 		int pag = 1;
 		int matricula=0,offset = 0,rows = 4;
-		//String nome = request.getParameter("nome"),email = request.getParameter("email");
+		String nome = "",email = "";
 
 		
 		if(request.getParameter("pag") != null)
 			pag = Integer.parseInt(request.getParameter("pag"));
 		
-		if(request.getParameter("rows") != null)
+		if(request.getParameter("rows") != null) 
 			rows = Integer.parseInt(request.getParameter("rows"));
-			
 		
 		if(request.getParameter("matricula") != null)
-			matricula = Integer.parseInt(request.getParameter("matricula"));
+			//matricula = Integer.parseInt(request.getParameter("matricula"));
+		
+		if(request.getParameter("email") != null)
+			email = request.getParameter("email");
+		
+		if(request.getParameter("nome") != null)
+			nome = request.getParameter("nome");
 		
 		if(pag<=0)pag = 1;
 
-
-
 		if(rows<=4)rows = 4;
 
-		if(pag>1){
-			offset = rows*(pag-1);
-		}		
+		if(pag>1)offset = rows*(pag-1);	
 
-		//request.setAttribute("formAction", "obtertodosalunos?pag="+pag);
+		request.setAttribute("formAction", "obtertodosalunos?pag="+pag);
 		
 		try {
 
 			AlunoDao alunoDao = new AlunoDao();
 			
-			alunoDao.setFiltro("ala",null,matricula);
+			alunoDao.setFiltro(nome,email,matricula);
 			
 			
 			listaAlunos = alunoDao.listar(offset, rows);
 			request.setAttribute("numPag", alunoDao.getNumPag());
 			request.setAttribute("rowsAtual", rows);
 			request.setAttribute("paginaAtual", pag);
-			request.setAttribute("mensagem", alunoDao.getToString());
+			request.setAttribute("nome",nome);
+			request.setAttribute("email", email);
+			request.setAttribute("matricula", matricula<=0?"":matricula);
+			request.setAttribute("mensagem", request.getParameter("matricula"));
+			alunoDao.fecharConexao();
+			
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | NumberFormatException | SQLException e) {
 
 			request.setAttribute("mensagem", "<p class=\"alert alert-danger\">Erro ao buscar alunos</p>");

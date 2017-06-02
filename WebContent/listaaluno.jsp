@@ -45,19 +45,19 @@
 		<%=request.getAttribute("mensagem")%>
 		<div class="row">
 			<div class="col-md-12 mx-auto">
-				<form method="post" action="obtertodosalunos" class="form-inline">
+				<form method="post" action="<%=request.getAttribute("formAction")%>" class="form-inline">
 					<div class="form-group">
 						<label class="sr-only" for="matricula">Matricula</label> <input
-							type="number" class="form-control" id="matricula"
+							type="number" class="form-control" value="<%=request.getAttribute("matricula")%>"id="matricula"
 							name="matricula" placeholder="Matricula">
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="nome">Nome</label> <input type="text"
-							class="form-control" id="nome" name="nome" placeholder="Nome">
+							class="form-control" id="nome" name="nome" value="<%=request.getAttribute("nome")%>"placeholder="Nome">
 					</div>
 					<div class="form-group">
 						<label class="sr-only" for="nome">E-Mail</label> <input
-							type="email" class="form-control" name="email" id="email"
+							type="text" class="form-control" name="email" value="<%=request.getAttribute("email")%>" id="email"
 							placeholder="E-Mail">
 					</div>
 					<div class="form-group">
@@ -71,7 +71,7 @@
 								selected="selected" <%}%>>20</option>
 						</select>
 					</div>
-					<button type="submit" class="btn btn-default">Sign in</button>
+					<button type="submit" class="btn btn-default">Filtrar</button>
 				</form>
 			</div>
 			<div class="col-md-12 table-responsive">

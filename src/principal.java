@@ -13,7 +13,7 @@ public class principal {
 		List<AlunoBean> listaAlunos = new ArrayList<AlunoBean>();
 		
 			AlunoDao alunoDao = new AlunoDao();
-			listaAlunos = alunoDao.listar();
+			listaAlunos = alunoDao.listar(0, 0);
 			
 			for (AlunoBean aluno : listaAlunos){
 				

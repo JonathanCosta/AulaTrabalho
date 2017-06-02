@@ -14,7 +14,7 @@ public class principal {
 		List<AlunoBean> listaAlunos = new ArrayList<AlunoBean>();
 		
 			AlunoDao alunoDao = new AlunoDao();
-			listaAlunos = alunoDao.listar(0, 0);
+			listaAlunos = alunoDao.listar(1, 10);
 			
 			for (AlunoBean aluno : listaAlunos){
 				
